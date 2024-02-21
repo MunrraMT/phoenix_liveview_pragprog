@@ -1,11 +1,16 @@
 defmodule PentoWeb.ProductLiveTest do
-  use PentoWeb.ConnCase
+  use PentoWeb.ConnCase, async: true
 
   import Phoenix.LiveViewTest
   import Pento.CatalogFixtures
 
   @create_attrs %{description: "some description", name: "some name", sku: 42, unit_price: 120.5}
-  @update_attrs %{description: "some updated description", name: "some updated name", sku: 43, unit_price: 456.7}
+  @update_attrs %{
+    description: "some updated description",
+    name: "some updated name",
+    sku: 43,
+    unit_price: 456.7
+  }
   @invalid_attrs %{description: nil, name: nil, sku: nil, unit_price: nil}
 
   defp create_product(_) do
@@ -14,7 +19,7 @@ defmodule PentoWeb.ProductLiveTest do
   end
 
   describe "Index" do
-    setup [:create_product]
+    setup [:create_product, :register_and_log_in_user]
 
     test "lists all products", %{conn: conn, product: product} do
       {:ok, _index_live, html} = live(conn, ~p"/products")
@@ -78,7 +83,7 @@ defmodule PentoWeb.ProductLiveTest do
   end
 
   describe "Show" do
-    setup [:create_product]
+    setup [:create_product, :register_and_log_in_user]
 
     test "displays product", %{conn: conn, product: product} do
       {:ok, _show_live, html} = live(conn, ~p"/products/#{product}")

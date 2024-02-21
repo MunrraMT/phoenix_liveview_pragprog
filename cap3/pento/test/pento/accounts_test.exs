@@ -1,5 +1,5 @@
 defmodule Pento.AccountsTest do
-  use Pento.DataCase
+  use Pento.DataCase, async: true
 
   alias Pento.Accounts
 
