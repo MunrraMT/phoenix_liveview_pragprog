@@ -5,7 +5,13 @@ defmodule PentoWeb.WrongLive do
     {:ok, assign(socket, score: 0, message: "Make a guess:")}
   end
 
-  @spec render(any) :: Phoenix.LiveView.Rendered.t()
+  def handle_event("guess", %{"number" => guess}, socket) do
+    message = "Your guess: #{guess}. Wrong. Guess again"
+    score = socket.assigns.score - 1
+
+    {:noreply, assign(socket, message: message, score: score)}
+  end
+
   def render(assigns) do
     ~H"""
     <h1 class="mb-4 text-4xl font-extrabold">
