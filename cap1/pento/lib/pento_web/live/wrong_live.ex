@@ -15,13 +15,7 @@ defmodule PentoWeb.WrongLive do
   def handle_event(
         "guess",
         %{"number" => guess},
-        %{
-          assigns: %{
-            correct_guess: last_correct_guess,
-            message: message,
-            score: score
-          }
-        } = socket
+        %{assigns: %{correct_guess: last_correct_guess, score: score}} = socket
       )
       when last_correct_guess == guess do
     message = "Your guess: #{guess}. Great. Guess again"
