@@ -1,7 +1,7 @@
 <.header>
-  <h1 class="text-2xl font-bold"><%= @greeting %></h1>
-
-  Listing Products
+  <span><%= @greeting %></span>
+  <br>
+  <span>Listing Products</span>
   <:actions>
     <.link patch={~p"/products/new"}>
       <.button>New Product</.button>
