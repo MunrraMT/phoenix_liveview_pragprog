@@ -21,12 +21,6 @@ defmodule PentoWeb.Router do
     pipe_through(:browser)
 
     get("/", PageController, :home)
-
-    live("/products", ProductLive.Index, :index)
-    live("/products/:id", ProductLive.Show, :show)
-
-    live("/faqs", FAQLive.Index, :index)
-    live("/faqs/:id", FAQLive.Show, :show)
   end
 
   # Other scopes may use custom stacks.
@@ -77,12 +71,16 @@ defmodule PentoWeb.Router do
 
       live("/guess", WrongLive)
 
+      live("/products", ProductLive.Index, :index)
       live("/products/new", ProductLive.Index, :new)
       live("/products/:id/edit", ProductLive.Index, :edit)
+      live("/products/:id", ProductLive.Show, :show)
       live("/products/:id/show/edit", ProductLive.Show, :edit)
 
+      live("/faqs", FAQLive.Index, :index)
       live("/faqs/new", FAQLive.Index, :new)
       live("/faqs/:id/edit", FAQLive.Index, :edit)
+      live("/faqs/:id", FAQLive.Show, :show)
       live("/faqs/:id/show/edit", FAQLive.Show, :edit)
     end
   end
