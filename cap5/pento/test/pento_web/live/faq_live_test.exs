@@ -1,5 +1,5 @@
 defmodule PentoWeb.FAQLiveTest do
-  use PentoWeb.ConnCase
+  use PentoWeb.ConnCase, async: true
 
   import Phoenix.LiveViewTest
   import Pento.InstitutionalFixtures
