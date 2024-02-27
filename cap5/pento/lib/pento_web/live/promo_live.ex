@@ -54,7 +54,7 @@ defmodule PentoWeb.PromoLive do
 
     case changeset.valid? do
       true ->
-        {:noreply, push_redirect(socket, to: ~p"/guess")}
+        {:noreply, push_redirect(socket, to: ~p"/promo")}
 
       false ->
         {:noreply, assign_form(socket, changeset)}
