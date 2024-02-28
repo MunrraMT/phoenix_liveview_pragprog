@@ -38,7 +38,13 @@ defmodule PentoWeb.ProductLive.FormComponent do
     {:ok,
      socket
      |> assign(assigns)
-     |> assign_form(changeset)}
+     |> assign_form(changeset)
+     |> allow_upload(:image,
+       accept: ~w(.jpg .jpeg .png .webp),
+       max_entries: 1,
+       max_file_size: 9_000_000,
+       auto_upload: true
+     )}
   end
 
   @impl true
