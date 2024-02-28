@@ -31,6 +31,21 @@ defmodule PentoWeb.ProductLive.FormComponent do
           <.button phx-disable-with="Saving...">Save Product</.button>
         </:actions>
       </.simple_form>
+
+      <%= for image <- @uploads.image.entries do %>
+        <div>
+          <figure class="mt-4">
+            <.live_img_preview entry={image} width="60" />
+            <figcaption><%= image.client_name %></figcaption>
+          </figure>
+
+          <progress value={image.progress} max="100"><%= image.progress %>%</progress>
+
+          <%= for err <- upload_errors(@uploads.image, image) do %>
+            <.error><%= err %></.error>
+          <% end %>
+        </div>
+      <% end %>
     </div>
     """
   end
