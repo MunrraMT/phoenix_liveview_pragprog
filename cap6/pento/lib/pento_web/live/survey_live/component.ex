@@ -9,9 +9,14 @@ defmodule PentoWeb.SurveyLive.Component do
     <h1 class="font-heavy text-3xl">
       <%= @content %>
     </h1>
-    <h3>
+    <h2>
       <%= render_slot(@inner_block) %>
-    </h3>
+    </h2>
+    <pre>
+    <%= inspect(assigns, pretty: true)  %>
+    <% %{ inner_block: [%{inner_block: block_fn}]} = assigns %>
+    <%= inspect(block_fn.(assigns.__changed__, assigns), pretty: true) %>
+    </pre>
     """
   end
 end
