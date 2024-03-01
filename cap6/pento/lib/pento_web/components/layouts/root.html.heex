@@ -19,7 +19,21 @@
         </li>
         <li>
           <.link
-            navigate={~p"/users/settings"}
+            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+            href={~p"/products"}>
+            Products
+          </.link>
+        </li>
+        <li>
+          <.link
+            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+            href={~p"/survey"}>
+            Survey
+          </.link>
+        </li>
+        <li>
+          <.link
+            href={~p"/users/settings"}
             class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
           >
             Settings
@@ -37,7 +51,7 @@
       <% else %>
         <li>
           <.link
-            navigate={~p"/users/register"}
+            href={~p"/users/register"}
             class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
           >
             Register
@@ -45,7 +59,7 @@
         </li>
         <li>
           <.link
-            navigate={~p"/users/log_in"}
+            href={~p"/users/log_in"}
             class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
           >
             Log in
@@ -53,6 +67,7 @@
         </li>
       <% end %>
     </ul>
+
     <%= @inner_content %>
   </body>
 </html>
