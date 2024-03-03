@@ -5,6 +5,8 @@ defmodule PentoWeb.DemographicLive.Show do
   import Phoenix.HTML
   import Phoenix.HTML.Form
 
+  alias PentoWeb.RatingLive
+  alias PentoWeb.DemographicLive
   alias Pento.Survey.Demographic
   alias PentoWeb.CoreComponents
 
@@ -25,11 +27,6 @@ defmodule PentoWeb.DemographicLive.Show do
           <%= demographic.year_of_birth %>
         </:col>
       </CoreComponents.table>
-
-      <%!-- <ul>
-        <li>Gender: <%= @demographic.gender %></li>
-        <li>Year of birth: <%= @demographic.year_of_birth %></li>
-      </ul> --%>
     </div>
     """
   end

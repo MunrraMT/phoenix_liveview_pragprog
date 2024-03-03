@@ -22,7 +22,7 @@ defmodule PentoWeb.Endpoint do
   plug Plug.Static,
     at: "/",
     from: :pento,
-    gzip: true,
+    gzip: false,
     only: PentoWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
