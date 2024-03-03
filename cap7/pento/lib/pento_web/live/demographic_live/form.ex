@@ -4,8 +4,9 @@ defmodule PentoWeb.DemographicLive.Form do
   alias Pento.Survey
   alias Pento.Survey.Demographic
   alias Pento.Accounts.User
-  alias Phoenix.Socket
+  alias Phoenix.LiveView.Socket
 
+  @impl true
   def update(assigns, socket) do
     {:ok,
      socket
