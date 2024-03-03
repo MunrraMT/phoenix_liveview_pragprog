@@ -16,12 +16,39 @@ defmodule PentoWeb.DemographicLive.Form do
   end
 
   @impl true
-  def handle_event("save", %{"demographic" => demographic_params}, %Socket{} = socket) do
-    params = params_with_user_id(demographic_params, socket)
-
+  def handle_event(
+        "validate",
+        %{"demographic" => demographic_params},
+        %Socket{assigns: %{demographic: demographic}} = socket
+      ) do
     {:noreply,
-     socket
-     |> save_demographic(params)}
+     assign_form(
+       socket,
+       changeset_validated(demographic, demographic_params)
+     )}
+  end
+
+  @impl true
+  def handle_event("save", %{"demographic" => demographic_params}, %Socket{} = socket) do
+    params =
+      params_with_user_id(
+        demographic_params,
+        %Socket{assigns: %{demographic: demographic}} = socket
+      )
+
+    changeset =
+      demographic
+      |> changeset_validated(demographic_params)
+
+    case changeset.valid? do
+      true ->
+        {:noreply,
+         socket
+         |> save_demographic(params)}
+
+      false ->
+        {:noreply, assign_form(socket, changeset)}
+    end
   end
 
   defp assign_demographic(%Socket{assigns: %{current_user: %User{} = user}} = socket) do
@@ -50,5 +77,11 @@ defmodule PentoWeb.DemographicLive.Form do
       {:error, %Ecto.Changeset{} = changeset} ->
         assign_form(socket, changeset)
     end
+  end
+
+  defp changeset_validated(demographic, demographic_params) do
+    demographic
+    |> Survey.change_demographic(demographic_params)
+    |> Map.put(:action, :validate)
   end
 end
