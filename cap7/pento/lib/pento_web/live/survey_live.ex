@@ -6,6 +6,7 @@ defmodule PentoWeb.SurveyLive do
   alias Pento.Survey
   alias PentoWeb.DemographicLive
   alias PentoWeb.RatingLive
+  alias PentoWeb.RatingLive.Show
 
   @impl true
   def mount(_params, _session, socket) do
