@@ -38,7 +38,7 @@ defmodule PentoWeb.RatingLive.Index do
     ~H"""
     <div><%= @product.name %></div>
     <%= if rating = List.first(@product.ratings) do %>
-      <RatingLive.Show.stars rating={rating} product={@product} />
+      <RatingLive.Show.stars rating={rating} />
     <% else %>
       <div>
         <h3><%= @product.name %> rating form coming soon!</h3>
