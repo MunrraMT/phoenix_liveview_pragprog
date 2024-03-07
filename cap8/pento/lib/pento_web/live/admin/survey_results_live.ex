@@ -15,7 +15,9 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
 
   def assign_dataset(
         %{
-          products_with_average_ratings: products_with_average_ratings
+          assigns: %{
+            products_with_average_ratings: products_with_average_ratings
+          }
         } = socket
       ) do
     socket
