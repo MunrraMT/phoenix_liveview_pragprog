@@ -3,8 +3,6 @@ defmodule Pento.Catalog.Product.Query do
 
   alias Pento.Catalog.Product
   alias Pento.Survey.Rating
-  alias Pento.Survey.Demographic
-  alias Pento.Accounts.User
 
   def base(), do: Product
 
