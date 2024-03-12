@@ -26,6 +26,12 @@ defmodule Pento.Catalog.Product.Query do
     |> average_ratings
   end
 
+  defp average_ratings(query) do
+    query
+    |> group_by([p], p.id)
+    |> select([p, r], {p.name, fragment("?::float", avg(r.stars))})
+  end
+
   def join_ratings(query) do
     query
     |> join(:inner, [p], r in Rating, on: r.product_id == p.id)
@@ -41,20 +47,14 @@ defmodule Pento.Catalog.Product.Query do
     |> join(:left, [p, r, u, d], d in Demographic, on: d.user_id == u.id)
   end
 
-  def filter_by_age_ground(query \\ base(), filter) do
-    query
-    |> apply_age_group_filter(filter)
-  end
-
   def with_zero_ratings(query \\ base()) do
     query
     |> select([p], {p.name, 0})
   end
 
-  defp average_ratings(query) do
+  def filter_by_age_ground(query \\ base(), filter) do
     query
-    |> group_by([p], p.id)
-    |> select([p, r], {p.name, fragment("?::float", avg(r.stars))})
+    |> apply_age_group_filter(filter)
   end
 
   defp apply_age_group_filter(query, "18 and under") do
@@ -95,5 +95,18 @@ defmodule Pento.Catalog.Product.Query do
 
   defp apply_age_group_filter(query, _filter) do
     query
+  end
+
+  def filter_by_gender_ground(query \\ base(), gender) do
+    query
+    |> apply_gender_group_filter(gender)
+  end
+
+  defp apply_gender_group_filter(query, nil), do: query
+  defp apply_gender_group_filter(query, "all"), do: query
+
+  defp apply_gender_group_filter(query, gender) do
+    query
+    |> where([p, r, u, d], d.gender == ^gender)
   end
 end

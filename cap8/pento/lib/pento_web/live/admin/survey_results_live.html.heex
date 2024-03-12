@@ -1,7 +1,7 @@
 <section class="ml-8">
   <h2 class="font-light text-2xl">Survey Results</h2>
-  <div id="survey-results-component">
-    <%!-- <div class="container">
+  <div id="survey-results-component" style="display: flex;">
+    <div class="container">
       <.form
         for={%{}}
         as={:gender_filter}
@@ -10,13 +10,13 @@
         id="gender-form"
       >
         <label for="gender-filter">By gender:</label>
-        <select name="gender-filter" id="gender-filter">
-          <%= for gender <- ["female", "male", "other", "prefer not to say"] do %>
+        <select name="gender_filter" id="gender-filter">
+          <%= for gender <- ["all","female", "male", "other", "prefer not to say"] do %>
             <option value={gender} selected={@gender_filter == gender}><%= gender %></option>
           <% end %>
         </select>
       </.form>
-    </div> --%>
+    </div>
     <div class="container">
       <.form
         for={%{}}
