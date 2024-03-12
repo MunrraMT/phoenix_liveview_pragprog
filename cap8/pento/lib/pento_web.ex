@@ -104,6 +104,12 @@ defmodule PentoWeb do
     end
   end
 
+  def chart_live do
+    quote do
+      unquote(chart_helpers())
+    end
+  end
+
   defp chart_helpers do
     quote do
       import PentoWeb.Charts.BarChart
