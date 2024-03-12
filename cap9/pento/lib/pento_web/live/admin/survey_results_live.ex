@@ -4,6 +4,7 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
 
   alias Pento.Catalog
 
+  @impl true
   def update(assigns, socket) do
     {:ok,
      socket
@@ -44,11 +45,22 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
     )
   end
 
-  def assign_age_group_filter(socket, age_group_filter \\ "all") do
+  def assign_age_group_filter(socket, age_group_filter) do
     socket
     |> assign(:age_group_filter, age_group_filter)
   end
 
+  def assign_age_group_filter(%{assigns: %{age_group_filter: age_group_filter}} = socket) do
+    socket
+    |> assign(:age_group_filter, age_group_filter)
+  end
+
+  def assign_age_group_filter(socket) do
+    socket
+    |> assign(:age_group_filter, "all")
+  end
+
+  @impl true
   def handle_event(
         "age_group_filter",
         %{
@@ -65,11 +77,22 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
      |> assign_chart_svg()}
   end
 
-  def assign_gender_filter(socket, gender_filter \\ "all") do
+  def assign_gender_filter(socket, gender_filter) do
     socket
     |> assign(:gender_filter, gender_filter)
   end
 
+  def assign_gender_filter(%{assigns: %{gender_filter: gender_filter}} = socket) do
+    socket
+    |> assign(:gender_filter, gender_filter)
+  end
+
+  def assign_gender_filter(socket) do
+    socket
+    |> assign(:gender_filter, "all")
+  end
+
+  @impl true
   def handle_event(
         "gender_filter",
         %{
