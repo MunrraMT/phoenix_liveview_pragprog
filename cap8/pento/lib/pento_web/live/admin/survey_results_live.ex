@@ -34,10 +34,10 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
 
   defp assign_products_with_average_ratings(socket) do
     socket
-    |> assign(
-      :products_with_average_ratings,
-      Catalog.products_with_average_ratings()
-    )
+    # |> assign(
+    #   :products_with_average_ratings,
+    #   Catalog.products_with_average_ratings()
+    # )
   end
 
   defp make_bar_chart_dataset(data) do
