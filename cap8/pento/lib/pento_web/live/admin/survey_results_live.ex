@@ -33,9 +33,25 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
     |> assign(:chart_svg, render_bar_chart(chart))
   end
 
-  def assign_age_group_filter(socket) do
+  def assign_age_group_filter(socket, age_group_filter \\ "all") do
     socket
-    |> assign(:age_group_filter, "all")
+    |> assign(:age_group_filter, age_group_filter)
+  end
+
+  def handle_event(
+        "age_group_filter",
+        %{
+          "age_group_filter" => age_group_filter
+        },
+        socket
+      ) do
+    {:noreply,
+     socket
+     |> assign_age_group_filter(age_group_filter)
+     |> assign_products_with_average_ratings()
+     |> assign_dataset()
+     |> assign_chart()
+     |> assign_chart_svg()}
   end
 
   defp assign_products_with_average_ratings(
@@ -48,7 +64,7 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
     socket
     |> assign(
       :products_with_average_ratings,
-      Catalog.products_with_average_ratings(%{
+      get_products_with_average_ratings(%{
         age_group_filter: age_group_filter
       })
     )
@@ -80,4 +96,14 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
   defp subtitle(), do: "average star ratings per product"
   defp x_axis(), do: "products"
   defp y_axis(), do: "stars"
+
+  defp get_products_with_average_ratings(filter) do
+    case Catalog.products_with_average_ratings(filter) do
+      [] ->
+        Catalog.products_with_zero_ratings()
+
+      products ->
+        products
+    end
+  end
 end
