@@ -104,6 +104,12 @@ defmodule PentoWeb do
     end
   end
 
+  defp chart_helpers do
+    quote do
+      import PentoWeb.Charts.BarChart
+    end
+  end
+
   @doc """
   When used, dispatch to the appropriate controller/view/etc.
   """
