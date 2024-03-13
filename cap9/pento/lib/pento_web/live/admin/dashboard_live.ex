@@ -1,16 +1,18 @@
 defmodule PentoWeb.Admin.DashboardLive do
-  alias PentoWeb.Admin.UserActivityLive
-  alias PentoWeb.Admin.SurveyResultsLive
   use PentoWeb, :live_view
 
   alias PentoWeb.Endpoint
+  alias PentoWeb.Admin.UserActivityLive
+  alias PentoWeb.Admin.SurveyResultsLive
 
   @survey_results_topic "survey_results"
+  @user_activity_topic "user_activity"
 
   @impl true
   def mount(_params, _session, socket) do
     if(connected?(socket)) do
       Endpoint.subscribe(@survey_results_topic)
+      Endpoint.subscribe(@user_activity_topic)
     end
 
     {:ok,
