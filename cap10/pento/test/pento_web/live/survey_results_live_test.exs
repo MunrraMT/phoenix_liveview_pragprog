@@ -1,5 +1,5 @@
 defmodule PentoWeb.SurveyResultsLiveTest do
-  use PentoWeb.ConnCase
+  use PentoWeb.ConnCase, async: true
 
   alias PentoWeb.Admin.SurveyResultsLive
   alias Pento.Survey
@@ -49,6 +49,29 @@ defmodule PentoWeb.SurveyResultsLiveTest do
       [user2: user2]
     end
 
+    test "ratings are filtered by age group", %{
+      socket: socket,
+      user: user,
+      product: product,
+      user2: user2
+    } do
+      create_rating(2, user, product)
+      create_rating(3, user2, product)
+
+      socket =
+        socket
+        |> SurveyResultsLive.assign_age_group_filter()
+
+      assert socket.assigns.age_group_filter == "all"
+
+      socket =
+        socket
+        |> update_socket(:age_group_filter, "18 and under")
+        |> SurveyResultsLive.assign_age_group_filter()
+
+      assert socket.assigns.age_group_filter == "18 and under"
+    end
+
     test "no ratings exist", %{socket: socket} do
       socket =
         socket
@@ -72,6 +95,10 @@ defmodule PentoWeb.SurveyResultsLiveTest do
       assert socket.assigns.products_with_average_ratings ==
                [{@create_product_attrs.name, 2.0}]
     end
+  end
+
+  defp update_socket(socket, key, value) do
+    %{socket | assigns: Map.merge(socket.assigns, Map.new([{key, value}]))}
   end
 
   defp product_fixture() do
