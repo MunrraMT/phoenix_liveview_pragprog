@@ -56,6 +56,10 @@ defmodule PentoWeb.AdminDashboardLiveTest do
 
       :ok
     end
+
+    test "it filters by age group", %{conn: conn} do
+      {:ok, view, _html} = live(conn, ~p"/admin-dashboard")
+    end
   end
 
   defp product_fixture() do
