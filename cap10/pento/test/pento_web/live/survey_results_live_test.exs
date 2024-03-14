@@ -58,18 +58,29 @@ defmodule PentoWeb.SurveyResultsLiveTest do
       create_rating(2, user, product)
       create_rating(3, user2, product)
 
-      socket =
-        socket
-        |> SurveyResultsLive.assign_age_group_filter()
+      socket
+      |> SurveyResultsLive.assign_age_group_filter()
+      |> assert_key(:age_group_filter, "all")
+      |> update_socket(:age_group_filter, "18 and under")
+      |> SurveyResultsLive.assign_age_group_filter()
+      |> assert_key(:age_group_filter, "18 and under")
+    end
 
-      assert socket.assigns.age_group_filter == "all"
+    test "ratings are filtered by gender", %{
+      socket: socket,
+      user: user,
+      product: product,
+      user2: user2
+    } do
+      create_rating(2, user, product)
+      create_rating(3, user2, product)
 
-      socket =
-        socket
-        |> update_socket(:age_group_filter, "18 and under")
-        |> SurveyResultsLive.assign_age_group_filter()
-
-      assert socket.assigns.age_group_filter == "18 and under"
+      socket
+      |> SurveyResultsLive.assign_gender_filter()
+      |> assert_key(:gender_filter, "all")
+      |> update_socket(:gender_filter, "male")
+      |> SurveyResultsLive.assign_gender_filter()
+      |> assert_key(:gender_filter, "male")
     end
 
     test "no ratings exist", %{socket: socket} do
@@ -99,6 +110,11 @@ defmodule PentoWeb.SurveyResultsLiveTest do
 
   defp update_socket(socket, key, value) do
     %{socket | assigns: Map.merge(socket.assigns, Map.new([{key, value}]))}
+  end
+
+  defp assert_key(socket, key, value) do
+    assert socket.assigns[key] == value
+    socket
   end
 
   defp product_fixture() do
