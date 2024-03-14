@@ -1,10 +1,11 @@
 defmodule PentoWeb.AdminDashboardLiveTest do
-  alias Pento.Survey
-  alias Pento.Accounts
-  alias Pento.Catalog
   use PentoWeb.ConnCase, async: true
 
   import Phoenix.LiveViewTest
+
+  alias Pento.Survey
+  alias Pento.Accounts
+  alias Pento.Catalog
 
   @create_product_attrs %{
     description: "test description",
