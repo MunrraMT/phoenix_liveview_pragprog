@@ -65,11 +65,16 @@ defmodule PentoWeb.AdminDashboardLiveTest do
              |> element("#age-group-form")
              |> render_change(params) =~ "text-anchor=\"middle\">2.00</text>"
     end
-  end
 
-  test "it updates to display newly creaated ratings",
-       %{conn: conn, product: product} do
-    {:ok, view, html} = live(conn, ~p"/admin/dashboard")
+    test "it updates to display newly created ratings", %{conn: conn, product: product} do
+      {:ok, view, html} = live(conn, ~p"/admin/dashboard")
+
+      assert html =~ "text-anchor=\"middle\">2.50</text>"
+
+      user3 = user_fixture(@create_user3_attrs)
+      create_demographic(user3)
+      create_rating(user3, product, 3)
+    end
   end
 
   defp product_fixture() do
