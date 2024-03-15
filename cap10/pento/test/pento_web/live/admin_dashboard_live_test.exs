@@ -58,7 +58,12 @@ defmodule PentoWeb.AdminDashboardLiveTest do
     end
 
     test "it filters by age group", %{conn: conn} do
-      {:ok, view, _html} = live(conn, ~p"/admin-dashboard")
+      {:ok, view, _html} = live(conn, ~p"/admin/dashboard")
+      params = %{"age_group_filter" => "18 and under"}
+
+      assert view
+             |> element("#age-group-form")
+             |> render_change(params) =~ "text-anchor=\"middle\">2.00</text>"
     end
   end
 
