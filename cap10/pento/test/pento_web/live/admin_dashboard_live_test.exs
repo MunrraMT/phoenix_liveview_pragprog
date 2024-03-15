@@ -75,8 +75,9 @@ defmodule PentoWeb.AdminDashboardLiveTest do
       create_demographic(user3)
       create_rating(user3, product, 3)
 
-      send(view.pid, %{event: "rating_creted"})
+      send(view.pid, %{event: "rating_created"})
       :timer.sleep(2)
+      assert render(view) =~ "text-anchor=\"middle\">2.67</text>"
     end
   end
 
