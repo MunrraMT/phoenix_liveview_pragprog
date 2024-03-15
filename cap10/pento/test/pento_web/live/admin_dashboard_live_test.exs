@@ -74,6 +74,9 @@ defmodule PentoWeb.AdminDashboardLiveTest do
       user3 = user_fixture(@create_user3_attrs)
       create_demographic(user3)
       create_rating(user3, product, 3)
+
+      send(view.pid, %{event: "rating_creted"})
+      :timer.sleep(2)
     end
   end
 
