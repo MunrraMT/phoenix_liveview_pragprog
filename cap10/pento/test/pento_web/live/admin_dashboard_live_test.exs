@@ -67,6 +67,11 @@ defmodule PentoWeb.AdminDashboardLiveTest do
     end
   end
 
+  test "it updates to display newly creaated ratings",
+       %{conn: conn, product: product} do
+    {:ok, view, html} = live(conn, ~p"/admin/dashboard")
+  end
+
   defp product_fixture() do
     {:ok, product} = Catalog.create_product(@create_product_attrs)
     product
