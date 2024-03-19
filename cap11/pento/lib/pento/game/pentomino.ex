@@ -12,7 +12,7 @@ defmodule Pento.Game.Pentomino do
 
   def new(fields \\ []), do: __struct__(fields)
 
-  def rotate(%__MODULE__{rotate: degrees} = p) do
+  def rotate(%__MODULE__{rotation: degrees} = p) do
     %{p | rotation: rem(degrees + 90, 360)}
   end
 
