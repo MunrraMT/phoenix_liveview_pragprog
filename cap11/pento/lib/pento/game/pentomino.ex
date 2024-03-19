@@ -7,23 +7,36 @@ defmodule Pento.Game.Pentomino do
             reflected: false,
             location: @default_location
 
+  alias Pento.Game.Shape
   alias Pento.Game.Point
 
   def new(fields \\ []), do: __struct__(fields)
 
-  def rotate(%{rotate: degrees} = p) do
+  def rotate(%__MODULE__{rotate: degrees} = p) do
     %{p | rotation: rem(degrees + 90, 360)}
   end
 
-  def flip(%{reflected: reflection} = p) do
+  def flip(%__MODULE__{reflected: reflection} = p) do
     %{p | reflected: not reflection}
   end
 
-  def up(p), do: %{p | location: Point.move(p.location, {0, -1})}
+  def up(%__MODULE__{} = p) do
+    %{p | location: Point.move(p.location, {0, -1})}
+  end
 
-  def down(p), do: %{p | location: Point.move(p.location, {0, 1})}
+  def down(%__MODULE__{} = p) do
+    %{p | location: Point.move(p.location, {0, 1})}
+  end
 
-  def left(p), do: %{p | location: Point.move(p.location, {-1, 0})}
+  def left(%__MODULE__{} = p) do
+    %{p | location: Point.move(p.location, {-1, 0})}
+  end
 
-  def right(p), do: %{p | location: Point.move(p.location, {1, 0})}
+  def right(%__MODULE__{} = p) do
+    %{p | location: Point.move(p.location, {1, 0})}
+  end
+
+  def to_shape(%__MODULE__{} = pento) do
+    Shape.new(pento.name, pento.rotation, pento.reflected, pento.location)
+  end
 end
