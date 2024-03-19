@@ -6,4 +6,6 @@ defmodule Pento.Game.Pentomino do
             rotation: 0,
             reflected: false,
             location: @default_location
+
+  def new(fields \\ []), do: __struct__(fields)
 end
