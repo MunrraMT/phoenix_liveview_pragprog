@@ -15,4 +15,11 @@ defmodule Pento.Game.Board do
   def new(:wide), do: new(:all, rect(15, 4))
   def new(:medium), do: new(:all, rect(12, 5))
   def new(:default), do: new(:all, rect(10, 6))
+
+  defp rect(x, y) do
+    for x <- 1..x, y <- 1..y, do: {x, y}
+  end
+
+  defp palette(:all), do: [:i, :l, :y, :n, :p, :w, :u, :v, :s, :f, :x, :t]
+  defp palette(:small), do: [:u, :v, :p]
 end
