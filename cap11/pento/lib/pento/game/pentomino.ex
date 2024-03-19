@@ -7,5 +7,23 @@ defmodule Pento.Game.Pentomino do
             reflected: false,
             location: @default_location
 
+  alias Pento.Game.Point
+
   def new(fields \\ []), do: __struct__(fields)
+
+  def rotate(%{rotate: degrees} = p) do
+    %{p | rotation: rem(degrees + 90, 360)}
+  end
+
+  def flip(%{reflected: reflection} = p) do
+    %{p | reflected: not reflection}
+  end
+
+  def up(p), do: %{p | location: Point.move(p.location, {0, -1})}
+
+  def down(p), do: %{p | location: Point.move(p.location, {0, 1})}
+
+  def left(p), do: %{p | location: Point.move(p.location, {-1, 0})}
+
+  def right(p), do: %{p | location: Point.move(p.location, {1, 0})}
 end
