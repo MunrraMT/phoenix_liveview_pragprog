@@ -4,6 +4,9 @@ defmodule Pento.Game.Board do
             palette: [],
             points: []
 
+  alias Pento.Game.Pentomino
+  alias Pento.Game.Shape
+
   def puzzles(), do: ~w(default wide widest medium tiny)a
 
   def new(palette, points) do
@@ -15,6 +18,22 @@ defmodule Pento.Game.Board do
   def new(:wide), do: new(:all, rect(15, 4))
   def new(:medium), do: new(:all, rect(12, 5))
   def new(:default), do: new(:all, rect(10, 6))
+
+  def to_shape(board) do
+    Shape.__struct__(color: :purple, name: :board, points: board.points)
+  end
+
+  def to_shapes(board) do
+    board_shape = to_shape(board)
+
+    pento_shapes =
+      [board.active_pento | board.completed_pentos]
+      |> Enum.reverse()
+      |> Enum.filter(& &1)
+      |> Enum.map(&Pentomino.to_shape/1)
+
+    [board_shape | pento_shapes]
+  end
 
   defp rect(x, y) do
     for x <- 1..x, y <- 1..y, do: {x, y}
