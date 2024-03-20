@@ -64,9 +64,9 @@ defmodule PentoWeb.GameLive.Board do
   end
 
   def assign_shapes(%{assigns: %{board: board}} = socket) do
-    shape = Board.to_shape(board)
+    shapes = Board.to_shapes(board)
 
     socket
-    |> assign(:shapes, [shape])
+    |> assign(:shapes, shapes)
   end
 end
