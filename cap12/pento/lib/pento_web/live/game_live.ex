@@ -8,6 +8,9 @@ defmodule PentoWeb.GameLive do
     <section class="container">
       <h1 class="font-bold text-3xl">Welcome to Pento!</h1>
     </section>
+    <svg viewBox="0 0 100 100">
+      <rect x="0" y="0" width="10" height="10" />
+    </svg>
     """
   end
 end
