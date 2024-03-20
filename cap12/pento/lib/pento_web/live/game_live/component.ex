@@ -3,7 +3,7 @@ defmodule PentoWeb.GameLive.Component do
 
   alias Pento.Game.Pentomino
 
-  # import PentoWeb.GameLive.Colors
+  import PentoWeb.GameLive.Colors
 
   @width 10
 
@@ -53,16 +53,16 @@ defmodule PentoWeb.GameLive.Component do
     """
   end
 
-  attr :shape_name, :list, required: true
+  attr :shape_names, :list, required: true
   attr :completed_shape_names, :list, default: []
 
-  def palette(%{shape_names: shape_names} = assigns) do
+  def palette(assigns) do
     ~H"""
     <div id="palette">
       <.canvas view_box="0 0 500 125">
         <%= for shape <- palette_shapes(@shape_names) do %>
           <.shape
-            points={@shape.points}
+            points={shape.points}
             fill={color(shape.color, false, shape.name in @completed_shape_names)}
             name={shape.name}
           />

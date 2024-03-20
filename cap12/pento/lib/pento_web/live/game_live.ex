@@ -9,9 +9,7 @@ defmodule PentoWeb.GameLive do
     ~H"""
     <section class="container">
       <h1 class="font-bold text-3xl">Welcome to Pento!</h1>
-      <.canvas view_box="0 0 220 70">
-        <.shape points={[{3, 2}, {4, 3}, {3, 3}, {4, 2}, {3, 4}]} fill="orange" name="p" />
-      </.canvas>
+      <.palette shape_names={[:i, :l, :y, :n, :p, :w, :u, :v, :s, :f, :x, :t]} />
     </section>
     """
   end
