@@ -15,6 +15,27 @@ defmodule PentoWeb.GameLive.Board do
      |> assign_shapes()}
   end
 
+  def render(assigns) do
+    ~H"""
+    <div id={@id} phx-window-keydown="key" phx-target={@myself}>
+      <.canvas view_box="0 0 200 70">
+        <%= for shape <- @shapes do %>
+          <.shape
+            points={shape.points}
+            fill={color(shape.color, Board.active?(@board, shape.name), false)}
+            name={shape.name}
+          />
+        <% end %>
+      </.canvas>
+      <hr />
+      <.palette
+        shape_names={@board.palette}
+        completed_shape_names={Enum.map(@board.completed_pentos, & &1.name)}
+      />
+    </div>
+    """
+  end
+
   def assign_params(socket, id, puzzle) do
     socket
     |> assign(:id, id)
@@ -22,7 +43,7 @@ defmodule PentoWeb.GameLive.Board do
   end
 
   def assign_board(%{assigns: %{puzzle: puzzle}} = socket) do
-    active = Pentomino.new(name: :p, location: {3, 2})
+    active = Pentomino.new(name: :p, location: {7, 2})
 
     completed = [
       Pentomino.new(name: :u, rotation: 270, location: {1, 2}),

@@ -7,7 +7,7 @@ defmodule Pento.Game.Board do
   alias Pento.Game.Pentomino
   alias Pento.Game.Shape
 
-  def puzzles(), do: ~w(default wide widest medium tiny)a
+  def puzzles(), do: ~w[default wide widest medium tiny]a
 
   def new(palette, points) do
     %__MODULE__{palette: palette(palette), points: points}
