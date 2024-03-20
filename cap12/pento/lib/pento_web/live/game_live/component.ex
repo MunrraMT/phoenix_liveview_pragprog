@@ -53,5 +53,41 @@ defmodule PentoWeb.GameLive.Component do
     """
   end
 
+  attr :shape_name, :list, required: true
+  attr :completed_shape_names, :list, default: []
+
+  def palette(%{shape_names: shape_names} = assigns) do
+    ~H"""
+    <div id="palette">
+      <.canvas view_box="0 0 500 125">
+        <%= for shape <- palette_shapes(@shape_names) do %>
+          <.shape
+            points={@shape.points}
+            fill={color(shape.color, false, shape.name in @completed_shape_names)}
+            name={shape.name}
+          />
+        <% end %>
+      </.canvas>
+    </div>
+    """
+  end
+
   defp convert(i), do: (i - 1) * @width + 2 * @width
+
+  defp palette_shapes(names) do
+    names
+    |> Enum.with_index()
+    |> Enum.map(&place_pento/1)
+  end
+
+  defp place_pento({name, i}) do
+    Pentomino.new(name: name, location: location(i))
+    |> Pentomino.to_shape()
+  end
+
+  defp location(i) do
+    x = rem(i, 6) * 4 + 3
+    y = div(i, 6) * 5 + 3
+    {x, y}
+  end
 end
