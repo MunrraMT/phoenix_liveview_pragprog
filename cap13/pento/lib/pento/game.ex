@@ -1,4 +1,4 @@
-defmodule Pento.Game.Game do
+defmodule Pento.Game do
   alias Pento.Game.Board
   alias Pento.Game.Pentomino
 
