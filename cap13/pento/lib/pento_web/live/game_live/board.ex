@@ -3,7 +3,6 @@ defmodule PentoWeb.GameLive.Board do
 
   alias Pento.Game
   alias Pento.Game.Board
-  alias Pento.Game.Pentomino
 
   import PentoWeb.GameLive.Colors
   import PentoWeb.GameLive.Component
@@ -64,7 +63,7 @@ defmodule PentoWeb.GameLive.Board do
   def assign_board(%{assigns: %{puzzle: puzzle}} = socket) do
     board =
       puzzle
-      |> String.to_existing_atom()
+      |> String.to_atom()
       |> Board.new()
 
     socket
